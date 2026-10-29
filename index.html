@@ -43,13 +43,13 @@
 </ol>
 <video controls preload="none" width="640" src="demos/ocr.mp4"></video>
 <h2 id="pathograph-dl">Crop pathogen spread forecasting (spatio-temporal GNN)</h2>
-<p><a href="https://github.com/JulianAttemptsCoding/pathograph-dl">repo</a> | commit <code>1ca73f0</code></p>
-<p>Graph WaveNet-style model over 194 countries: predicts next-month presence of 8 crop pathogens from 24 months of IMF/FAOSTAT trade and climate anomalies. Chronological split, test 2021-01 to 2025-08: macro AUROC 0.960, AUPRC 0.785, after temperature scaling. The reported model&#x27;s file was recovered from the package the training jobs ran; the README says how.</p>
+<p><a href="https://github.com/JulianAttemptsCoding/pathograph-dl">repo</a> | commit <code>ae95edf</code></p>
+<p>Graph WaveNet-style model over 194 countries: predicts next-month presence of 8 crop pathogens from 24 months of IMF/FAOSTAT trade and climate anomalies. Chronological split, test 2021-01 to 2025-08: macro AUROC 0.960, AUPRC 0.785, after temperature scaling. A FiLM variant exists for the later incident experiments; it is not the reported model. The README covers both.</p>
 <p>Run: <code>pip install -e . &amp;&amp; pytest -q   # data-dependent tests skip without the zarr stores</code></p>
 <ol>
-<li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/1ca73f0638b4114ef847bb30ffb810702a91edc4/pathograph/models/stmm_gwnet_adaptive.py#L325-L350"><code>pathograph/models/stmm_gwnet_adaptive.py:325-350</code></a><br>Learned adjacency: softmax(relu(E1 E2^T)) from 10-d country embeddings, top-20 per row, renormalized. Lets the model find links that border and trade graphs miss.</li>
-<li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/1ca73f0638b4114ef847bb30ffb810702a91edc4/pathograph/models/stmm_gwnet_adaptive.py#L35-L80"><code>pathograph/models/stmm_gwnet_adaptive.py:35-80</code></a><br>Diffusion graph convolution: K powers of each support (border graph, its transpose, learned graph, its transpose), so risk can flow in both directions.</li>
-<li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/1ca73f0638b4114ef847bb30ffb810702a91edc4/pathograph/models/stmm_gwnet_adaptive.py#L240-L294"><code>pathograph/models/stmm_gwnet_adaptive.py:240-294</code></a><br>Node features from edge tensors: bilateral trade (N x N per month) reduced to per-country inflow/outflow, per pathogen-risk channel.</li>
+<li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/ae95edffd270d39ddac8a1a7d3b29672ce3187a1/pathograph/models/stmm_gwnet_adaptive.py#L325-L350"><code>pathograph/models/stmm_gwnet_adaptive.py:325-350</code></a><br>Learned adjacency: softmax(relu(E1 E2^T)) from 10-d country embeddings, top-20 per row, renormalized. Lets the model find links that border and trade graphs miss.</li>
+<li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/ae95edffd270d39ddac8a1a7d3b29672ce3187a1/pathograph/models/stmm_gwnet_adaptive.py#L35-L80"><code>pathograph/models/stmm_gwnet_adaptive.py:35-80</code></a><br>Diffusion graph convolution: K powers of each support (border graph, its transpose, learned graph, its transpose), so risk can flow in both directions.</li>
+<li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/ae95edffd270d39ddac8a1a7d3b29672ce3187a1/pathograph/models/stmm_gwnet_film.py#L407-L415"><code>pathograph/models/stmm_gwnet_film.py:407-415</code></a><br>FiLM variant: per-country learned scale and shift on the projected inputs, identity at initialization.</li>
 </ol>
 <video controls preload="none" width="640" src="demos/pathograph.mp4"></video>
 <h2 id="archive">Resistive plate chamber high-voltage scan (ASIoP 2025)</h2>

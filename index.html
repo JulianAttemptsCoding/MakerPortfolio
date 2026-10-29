@@ -9,7 +9,7 @@
 <body>
 <h1>Julian Juan: code index</h1>
 <p>GitHub: <a href="https://github.com/JulianAttemptsCoding">https://github.com/JulianAttemptsCoding</a></p>
-<p>My Maker Portfolio video walks through each of these ten projects, built from the clips below. This page is the technical companion: for each project, 1-3 places in the code worth reading, linked as permalinks to a fixed commit so the line ranges stay valid. Clips are 10 s screen recordings, no audio.</p>
+<p>My Maker Portfolio video walks through each of these ten projects, built from the clips below. This page is the technical companion: for each project, 1-3 code highlights with a short note on each, linked as permalinks to a fixed commit so the line ranges stay valid. Clips are 10 s screen recordings, no audio.</p>
 <ol>
 <li><a href="#Many_Prisoners-_Dilemma-">Iterated prisoner&#x27;s dilemma tournament</a></li>
 <li><a href="#OCR_w_OLlama_PostProcessing">Scanned book to clean text</a></li>
@@ -25,7 +25,7 @@
 <h2 id="Many_Prisoners-_Dilemma-">Iterated prisoner&#x27;s dilemma tournament</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/Many_Prisoners-_Dilemma-">repo</a> | commit <code>b536cb1</code></p>
 <p>58 hand-written strategies, round robin, 200 rounds per match, 5% move noise. Python stdlib only.</p>
-<p>Run: <code>python main.py</code></p>
+<p>Build/test: <code>python main.py</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/Many_Prisoners-_Dilemma-/blob/b536cb1b5f0214fbecdae4a921000f9b06d09021/main.py#L13-L17"><code>main.py:13-17</code></a><br>Noise model. Each move flips with p = 0.05; this is what separates forgiving strategies from strict tit-for-tat.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/Many_Prisoners-_Dilemma-/blob/b536cb1b5f0214fbecdae4a921000f9b06d09021/main.py#L94-L102"><code>main.py:94-102</code></a><br>Pavlov (win-stay, lose-shift), driven by the payoff matrix rather than the opponent&#x27;s last move.</li>
@@ -35,7 +35,7 @@
 <h2 id="OCR_w_OLlama_PostProcessing">Scanned book to clean text</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/OCR_w_OLlama_PostProcessing">repo</a> | commit <code>f2a8a22</code></p>
 <p>PDF page images, OpenCV binarization, Tesseract OCR, then Mistral 7B (local, via Ollama) fixes OCR errors page by page.</p>
-<p>Run: <code>python ocr_llm_postprocessor.py book.pdf -o out.txt</code></p>
+<p>Build/test: <code>python ocr_llm_postprocessor.py book.pdf -o out.txt</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/OCR_w_OLlama_PostProcessing/blob/f2a8a220e6e997e1d59646a30def8206770f7e25/ocr_llm_postprocessor.py#L70-L84"><code>ocr_llm_postprocessor.py:70-84</code></a><br>Preprocessing: grayscale, 3x3 Gaussian blur, Otsu threshold.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/OCR_w_OLlama_PostProcessing/blob/f2a8a220e6e997e1d59646a30def8206770f7e25/ocr_llm_postprocessor.py#L215-L237"><code>ocr_llm_postprocessor.py:215-237</code></a><br>Output filter. Line 225 exists because the model copied the few-shot example from the prompt (line 163) into real pages.</li>
@@ -45,7 +45,7 @@
 <h2 id="pathograph-dl">Crop pathogen spread forecasting (spatio-temporal GNN)</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/pathograph-dl">repo</a> | commit <code>ae95edf</code></p>
 <p>Graph WaveNet-style model over 194 countries: predicts next-month presence of 8 crop pathogens from 24 months of IMF/FAOSTAT trade and climate anomalies. Chronological split, test 2021-01 to 2025-08: macro AUROC 0.960, AUPRC 0.785, after temperature scaling. Includes a FiLM variant (per-country feature-wise linear modulation).</p>
-<p>Run: <code>pip install -e . &amp;&amp; pytest -q   # data-dependent tests skip without the zarr stores</code></p>
+<p>Build/test: <code>pip install -e . &amp;&amp; pytest -q   # data-dependent tests skip without the zarr stores</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/ae95edffd270d39ddac8a1a7d3b29672ce3187a1/pathograph/models/stmm_gwnet_adaptive.py#L325-L350"><code>pathograph/models/stmm_gwnet_adaptive.py:325-350</code></a><br>Learned adjacency: softmax(relu(E1 E2^T)) from 10-d country embeddings, top-20 per row, renormalized. Lets the model find links that border and trade graphs miss.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/pathograph-dl/blob/ae95edffd270d39ddac8a1a7d3b29672ce3187a1/pathograph/models/stmm_gwnet_adaptive.py#L35-L80"><code>pathograph/models/stmm_gwnet_adaptive.py:35-80</code></a><br>Diffusion graph convolution: K powers of each support (border graph, its transpose, learned graph, its transpose), so risk can flow in both directions.</li>
@@ -55,7 +55,7 @@
 <h2 id="archive">Resistive plate chamber high-voltage scan (ASIoP 2025)</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/archive">repo</a> | commit <code>43cbc74</code></p>
 <p>Efficiency vs. voltage, 8-14 kV, from two readouts: Tektronix scope waveforms (2 800 captures) and CAEN V1290 TDC binary dumps. C++/ROOT.</p>
-<p>Run: <code>cd ASIoP_Data_all &amp;&amp; root -l -b -q &#x27;count_outlier_files_with_efficiency_plot.C+&#x27;</code></p>
+<p>Build/test: <code>cd ASIoP_Data_all &amp;&amp; root -l -b -q &#x27;count_outlier_files_with_efficiency_plot.C+&#x27;</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/archive/blob/43cbc74d666a8b4a9cdf1df7de3aec58bc43e8a7/rpc_analysis_project/improved_ana.cc#L63-L115"><code>rpc_analysis_project/improved_ana.cc:63-115</code></a><br>Decoder for raw V1290 32-bit words: global/TDC headers and trailers, measurement words, extended trigger time tag.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/archive/blob/43cbc74d666a8b4a9cdf1df7de3aec58bc43e8a7/ASIoP_Data_all/count_outlier_files_with_efficiency_plot.C#L146-L196"><code>ASIoP_Data_all/count_outlier_files_with_efficiency_plot.C:146-196</code></a><br>Baseline mean and sigma pooled from pre-trigger rows across all files, so the threshold does not depend on any single capture.</li>
@@ -65,7 +65,7 @@
 <h2 id="ASIoP-ML-ZDC">Neutron energy reconstruction in the EIC zero-degree calorimeter</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/ASIoP-ML-ZDC">repo</a> | commit <code>ee001db</code></p>
 <p>100k simulated events (50-250 GeV neutrons). Variable-length ECAL/HCAL hits compressed to fixed shower descriptors; XGBoost vs. physics baselines. Test: MAE 4.42 GeV, resolution 5.3% (two-term linear calibration: 6.21 GeV, 6.7%).</p>
-<p>Run: <code>pip install -e . &amp;&amp; python scripts/05_evaluate_models.py --features data/processed/features_extended37.parquet --splits data/processed/splits.parquet   # no ROOT file needed</code></p>
+<p>Build/test: <code>pip install -e . &amp;&amp; python scripts/05_evaluate_models.py --features data/processed/features_extended37.parquet --splits data/processed/splits.parquet   # no ROOT file needed</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/ASIoP-ML-ZDC/blob/ee001db5737cf61e6b309e53f68979929bf2c282/src/zdc_energy_regression/features.py#L90-L108"><code>src/zdc_energy_regression/features.py:90-108</code></a><br>Energy-weighted shower centroid and RMS radius.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/ASIoP-ML-ZDC/blob/ee001db5737cf61e6b309e53f68979929bf2c282/src/zdc_energy_regression/features.py#L110-L137"><code>src/zdc_energy_regression/features.py:110-137</code></a><br>Depth-profile features (longitudinal skew, front/back energy fraction), which is where leakage shows up.</li>
@@ -75,7 +75,7 @@
 <h2 id="LaTeXRenderer">Collaborative LaTeX IDE (public shell)</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/LaTeXRenderer">repo</a> | <a href="https://julianattemptscoding.github.io/LaTeXRenderer/">live</a> | commit <code>1c4b2ee</code></p>
 <p>Public front end: sign-in, shared-password gate, and a loader that fetches and verifies the editor bundle. The editor and TeX compiler worker are in the private repo texCompiler. All authorization is server-side; the shell only refuses to run code whose hashes don&#x27;t match.</p>
-<p>Run: <code>npm install &amp;&amp; npm run test &amp;&amp; npm run typecheck</code></p>
+<p>Build/test: <code>npm install &amp;&amp; npm run test &amp;&amp; npm run typecheck</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/LaTeXRenderer/blob/1c4b2ee0d729fa53f1396a9cb92a7707b84b2cbe/src/lib/protectedApp.ts#L109-L137"><code>src/lib/protectedApp.ts:109-137</code></a><br>PBKDF2 (310 000 iterations) to AES-GCM key; the comment covers why caching it in sessionStorage exposes nothing new.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/LaTeXRenderer/blob/1c4b2ee0d729fa53f1396a9cb92a7707b84b2cbe/src/lib/protectedApp.ts#L434-L461"><code>src/lib/protectedApp.ts:434-461</code></a><br>Every asset is checked against its SHA-256 and byte length before it can execute.</li>
@@ -84,8 +84,8 @@
 <video controls preload="none" width="640" src="demos/latex.mp4"></video>
 <h2 id="QTA0">Cross-sectional equity model</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/QTA0">repo</a> | commit <code>0ea9a10</code></p>
-<p>Per-stock causal dilated TCN (WaveNet-style) encoder, one self-attention layer across all stocks on a date, non-crossing quantile head. Beat SPY on return but not risk in its first run; fair re-tests were negative, so it was not deployed. The planned expert-aggregation layer is unbuilt (stubs). See REPORT.md.</p>
-<p>Run: <code>pip install -e &quot;.[dev]&quot; &amp;&amp; python make.py test</code></p>
+<p>Per-stock causal dilated TCN (WaveNet-style) encoder, one self-attention layer across all stocks on a date, non-crossing quantile head. Beat SPY on return but not risk in its first run; fair re-tests were negative, so it was not deployed. The planned expert-aggregation layer is unbuilt (stubs). Details are in REPORT.md.</p>
+<p>Build/test: <code>pip install -e &quot;.[dev]&quot; &amp;&amp; python make.py test</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/QTA0/blob/0ea9a10a373276d8c7950029d304fbb5c67653ae/src/tactic/models/experts/tcn_ci.py#L15-L54"><code>src/tactic/models/experts/tcn_ci.py:15-54</code></a><br>Causal dilated convolutions (dilations 1-32, left-padded only), shared weights across stocks.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/QTA0/blob/0ea9a10a373276d8c7950029d304fbb5c67653ae/src/tactic/models/experts/hybrid_xs.py#L15-L35"><code>src/tactic/models/experts/hybrid_xs.py:15-35</code></a><br>Attention across the date&#x27;s stocks. Removing it gives f3; f4 beats f3 (Diebold-Mariano p = 0.0099), so the signal is cross-sectional.</li>
@@ -95,7 +95,7 @@
 <h2 id="tetris-online">Multiplayer falling-block game</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/tetris-online">repo</a> | <a href="https://julianattemptscoding.github.io/tetris-online/">live</a> | commit <code>ff8c3d1</code></p>
 <p>Independent engine matched to modern guideline timing (DAS 170 ms, ARR 50 ms, 500 ms lock, 15 lock resets). Peer-to-peer rooms over WebRTC (Trystero) or a socket server.</p>
-<p>Run: <code>npm install &amp;&amp; npm test</code></p>
+<p>Build/test: <code>npm install &amp;&amp; npm test</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/tetris-online/blob/ff8c3d1ffee5b12be476a436a48f06c083de6cdd/public/engine.js#L275-L299"><code>public/engine.js:275-299</code></a><br>Rotation with wall-kick tables; separate table for the I piece, none for O.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/tetris-online/blob/ff8c3d1ffee5b12be476a436a48f06c083de6cdd/public/engine.js#L345-L365"><code>public/engine.js:345-365</code></a><br>T-spin detection (three-corner rule, full vs. mini by front corners or the fifth kick).</li>
@@ -105,7 +105,7 @@
 <h2 id="retro-games-locally">Offline browser arcade</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/retro-games-locally">repo</a> | <a href="https://julianattemptscoding.github.io/retro-games-locally/">live</a> | commit <code>c2abfe0</code></p>
 <p>Most games are other people&#x27;s open-source projects, pinned and credited in CREDITS.md. Mine: the hub, offline packaging, the tabletop rules engine, Build Fight (three.js build-and-shoot duel with P2P play) and the Slope remake.</p>
-<p>Run: <code>npm ci &amp;&amp; npm start   # http://localhost:3000</code></p>
+<p>Build/test: <code>npm ci &amp;&amp; npm start   # http://localhost:3000</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/retro-games-locally/blob/c2abfe0f623ab1d41f3f7ccbcf4c12aecc632014/public/games/slope-run/game.js#L56-L75"><code>public/games/slope-run/game.js:56-75</code></a><br>Jump gaps sized from projectile flight at the speed the ball will have at that row, so every generated track is beatable.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/retro-games-locally/blob/c2abfe0f623ab1d41f3f7ccbcf4c12aecc632014/public/games/buildfight/game.js#L101-L116"><code>public/games/buildfight/game.js:101-116</code></a><br>Snapping a build to the grid from player yaw and position, including building off a ramp.</li>
@@ -115,7 +115,7 @@
 <h2 id="JuliansOpuses">Personal site, incl. UWB firefighter-tracking demo</h2>
 <p><a href="https://github.com/JulianAttemptsCoding/JuliansOpuses">repo</a> | <a href="https://julianattemptscoding.github.io/JuliansOpuses/">live</a> | commit <code>cd1dc8f</code></p>
 <p>Astro static site. The interactive part is a multilateration simulator for the UWB firefighter tracker (in progress, with Fremont Fire Department).</p>
-<p>Run: <code>npm install &amp;&amp; npm run dev</code></p>
+<p>Build/test: <code>npm install &amp;&amp; npm run dev</code></p>
 <ol>
 <li><a href="https://github.com/JulianAttemptsCoding/JuliansOpuses/blob/cd1dc8f10bef9852a48f526c64a2d0ccb972f461/src/components/Multilateration.astro#L187-L240"><code>src/components/Multilateration.astro:187-240</code></a><br>Levenberg-Marquardt on range residuals, 3x3 normal equations solved in closed form.</li>
 <li><a href="https://github.com/JulianAttemptsCoding/JuliansOpuses/blob/cd1dc8f10bef9852a48f526c64a2d0ccb972f461/src/components/Multilateration.astro#L242-L263"><code>src/components/Multilateration.astro:242-263</code></a><br>Horizontal/vertical dilution of precision from the anchor geometry.</li>
